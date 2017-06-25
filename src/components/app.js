@@ -19,6 +19,7 @@ export default class App extends Component {
 		};
 
 		this.afterAdd = this.afterAdd.bind(this);
+		this.afterDelete = this.afterDelete.bind(this);
 	}
 
 	//============================
@@ -33,10 +34,11 @@ export default class App extends Component {
 
 	// X Get the data after mounting
 	// X- Null state
-	// Pass 'delete' function to cards
+	// X Pass 'delete' function to cards
 	// X Pass 'add' function to form, then re-fetch data
 	// Pass 'edit' function to cards
 	// - Create 'edit' mode of cards
+	// 'Working' state during fetches
 
 	// Form validation and feedback
 	// - Disable button/enable
@@ -59,6 +61,10 @@ export default class App extends Component {
 	}
 
 	afterAdd() {
+		this.fetchData();
+	}
+
+	afterDelete() {
 		this.fetchData();
 	}
 
@@ -85,6 +91,7 @@ export default class App extends Component {
 
 				<ListingList
 					listings={listings}
+					afterDelete={this.afterDelete}
 				/>
 
 			</PageWrapper>

@@ -49,3 +49,30 @@ export function postListing(newData) {
 			throw new Error('Network error when posting data')
 		});
 }
+
+
+
+// DELETE a listing
+//--------------------
+const deleteOptions = {
+	method: 'DELETE',
+	headers: new Headers({
+		'Authorization': authToken,
+	}),
+};
+
+export function deleteListing(id) {
+	if (!id) {
+		return null;
+	}
+
+	const deleteUrl = `${requestUrl}/api/v1/listings/${id}`;
+
+	return fetch(deleteUrl, deleteOptions)
+		.then((response) => {
+			if (response.ok) {
+				return response;
+			}
+			throw new Error('Network error when deleting data')
+		});
+}

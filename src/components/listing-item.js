@@ -4,6 +4,10 @@ import {
 	EditIcon
 } from './icons';
 
+import {
+	deleteListing
+} from '../utils/fetch';
+
 
 class ListingItem extends Component {
 
@@ -22,19 +26,33 @@ class ListingItem extends Component {
 
 	constructor(props) {
 		super(props);
-		
+
 		this.state = {};
+
+		this.onDelete = this.onDelete.bind(this);
 	}
 
 	// TODO:
 	// ---------
-	// Icons
+	// X Icons
 	// Allow edits
 	// - Create editing state
 	// - Allow save
 
 	onDelete(e) {
+		e.preventDefault();
 		e.stopPropagation();
+		e.nativeEvent.stopPropagation();
+
+		deleteListing(this.props.id)
+			.then((response) => {
+				this.props.afterDelete();
+			})
+			.catch((error) => {
+				console.log(`Error deleting data: ${error}`);
+			});
+
+		return false; // to stop event bubbling
 	}
 
 	onEdit(e) {

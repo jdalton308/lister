@@ -2,7 +2,7 @@ import React from 'react';
 import ListingItem from './listing-item';
 
 
-const ListingList = ({listings}) => (
+const ListingList = ({listings, afterDelete}) => (
 
 	<div className='listing-list'>
 
@@ -24,6 +24,7 @@ const ListingList = ({listings}) => (
 						url={url}
 						id={id}
 						type={type}
+						afterDelete={afterDelete}
 					/>
 				);
 			})
