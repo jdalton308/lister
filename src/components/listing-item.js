@@ -106,9 +106,6 @@ class ListingItem extends Component {
 		} else {
 			this.setState({editing: false});
 		}
-
-		// TODO:
-		// - Show success/fail messaging
 	}
 
 	cancelEdit(e) {

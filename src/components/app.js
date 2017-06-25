@@ -24,20 +24,6 @@ export default class App extends Component {
 		this.addNotification = this.addNotification.bind(this);
 	}
 
-	//============================
-	// TODO:
-	//-----------
-	// 'Working' state during fetches
-
-	// X Form validation
-	// X - Disable button/enable
-	// Submittal feedback
-	// Handle server error
-
-	// Secure the auth token
-
-	//===========================
-
 	fetchData() {
 		getListings()
 			.then((response) => {
