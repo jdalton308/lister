@@ -3,7 +3,6 @@ import PageWrapper from './page-wrapper';
 import PageTitle from './page-title';
 import AddForm from './add-form';
 import ListingList from './listing-list';
-
 import {
 	getListings
 } from '../utils/fetch';
@@ -19,7 +18,7 @@ export default class App extends Component {
 		};
 
 		this.afterAdd = this.afterAdd.bind(this);
-		this.afterDelete = this.afterDelete.bind(this);
+		this.afterChange = this.afterChange.bind(this);
 	}
 
 	//============================
@@ -36,8 +35,9 @@ export default class App extends Component {
 	// X- Null state
 	// X Pass 'delete' function to cards
 	// X Pass 'add' function to form, then re-fetch data
-	// Pass 'edit' function to cards
-	// - Create 'edit' mode of cards
+	// XPass 'edit' function to cards
+	// X- Create 'edit' mode of cards
+
 	// 'Working' state during fetches
 
 	// Form validation and feedback
@@ -64,7 +64,7 @@ export default class App extends Component {
 		this.fetchData();
 	}
 
-	afterDelete() {
+	afterChange() {
 		this.fetchData();
 	}
 
@@ -91,7 +91,7 @@ export default class App extends Component {
 
 				<ListingList
 					listings={listings}
-					afterDelete={this.afterDelete}
+					afterChange={this.afterChange}
 				/>
 
 			</PageWrapper>

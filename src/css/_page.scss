@@ -69,12 +69,12 @@
 		position: relative;
 		margin-bottom: 20px;
 		padding: 15px 18px 18px;
+		overflow: hidden;
 
 		background-color: $white;
 		border-radius: 3px;
 		border: 1px solid $grey-light;
 		@include transition();
-		cursor: pointer;
 
 		@media (min-width: $mobile) {
 			display: inline-block;
@@ -127,12 +127,56 @@
 				}
 			}
 		}
-		.listing-title {
-			font-size: 0.95rem;
-			margin-bottom: 7px;
+		.content-container {
+			display: block;
+
+			&:hover {
+				.listing-url {
+					color: $blue;
+				}
+			}
+			&.hide {
+				pointer-events: none;
+			}
+
+			.listing-title {
+				font-size: 0.95rem;
+				margin-bottom: 7px;
+			}
+			.listing-url {
+				font-size: 0.75rem;
+				@include transition();
+			}
 		}
-		.listing-url {
-			font-size: 0.75rem;
+
+		.input-container {
+			position: absolute;
+			z-index: 2;
+			top: 10px;
+			left: 12px;
+			width: 75%;
+			opacity: 0;
+			pointer-events: none;
+			@include transition();
+
+			&.show {
+				opacity: 1;
+				pointer-events: auto;
+			}
+
+			.new-title-input {
+				display: block;
+				width: 100%;
+				margin-bottom: 1px;
+				padding: 4px 5px 1px;
+				font-size: 0.95rem;
+			}
+			.new-url-input {
+				display: block;
+				width: 100%;
+				padding: 3px 5px 1px;
+				font-size: 0.75rem;
+			}
 		}
 	}
 }

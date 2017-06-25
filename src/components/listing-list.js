@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {PropTypes} from 'react';
 import ListingItem from './listing-item';
 
 
-const ListingList = ({listings, afterDelete}) => (
+const ListingList = ({listings, afterChange}) => (
 
 	<div className='listing-list'>
 
@@ -24,7 +24,7 @@ const ListingList = ({listings, afterDelete}) => (
 						url={url}
 						id={id}
 						type={type}
-						afterDelete={afterDelete}
+						afterChange={afterChange}
 					/>
 				);
 			})
@@ -37,5 +37,11 @@ const ListingList = ({listings, afterDelete}) => (
 
 	</div>
 );
+
+ListingList.propTypes = {
+	listings: PropTypes.array,
+	afterChange: PropTypes.func,
+};
+
 
 export default ListingList;

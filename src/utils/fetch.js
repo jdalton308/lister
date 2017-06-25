@@ -8,6 +8,20 @@ const ourHeaders = new Headers({
 });
 
 
+// Utils
+//------------
+export function createItem(name, url) {
+	return {
+		data: {
+			attributes: {
+				title: name,
+				url: url,
+			}
+		}
+	};
+}
+
+
 
 // GET Listings
 //----------------
@@ -74,5 +88,31 @@ export function deleteListing(id) {
 				return response;
 			}
 			throw new Error('Network error when deleting data')
+		});
+}
+
+
+
+// UDPATE a listing
+//--------------------
+export function updateListing(id, newData) {
+	if (!id) {
+		return null;
+	}
+
+	const updateOptions = {
+		method: 'PUT',
+		headers: ourHeaders,
+		body: JSON.stringify(newData),
+	};
+
+	const updateUrl = `${requestUrl}/api/v1/listings/${id}`;
+
+	return fetch(updateUrl, updateOptions)
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error('Network error when updating data')
 		});
 }

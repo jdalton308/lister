@@ -1,11 +1,19 @@
-import React, {Component} from 'react';
-
+import React, {Component, PropTypes} from 'react';
 import {
+	createItem,
 	postListing
 } from '../utils/fetch';
 
 
 class AddForm extends Component {
+
+	static propTypes = {
+		onSubmit: PropTypes.func,
+	};
+
+	static defaultProps = {
+		onSubmit: () => {},
+	};
 
 	constructor(props) {
 		super(props);
@@ -24,24 +32,14 @@ class AddForm extends Component {
 	// Show server error to user
 	// Success message when creating/deleting
 
-	createItem() {
+
+	addData() {
 		const {
 			nameValue,
 			urlValue
 		} = this.state;
 
-		return {
-			data: {
-				attributes: {
-					title: nameValue,
-					url: urlValue,
-				}
-			}
-		};
-	}
-
-	addData() {
-		const newData = this.createItem();
+		const newData = createItem(nameValue, urlValue);
 
 		postListing(newData)
 			.then((response) => {				
