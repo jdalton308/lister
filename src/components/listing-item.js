@@ -20,10 +20,12 @@ class ListingItem extends Component {
 		id: PropTypes.string,
 		type: PropTypes.string,
 		afterChange: PropTypes.func,
+		addNotification: PropTypes.func,
 	};
 
 	static defaultProps = {
 		afterChange: () => {},
+		addNotification: () => {},
 	};
 
 	constructor(props) {
@@ -44,10 +46,18 @@ class ListingItem extends Component {
 	onDelete(e) {
 		deleteListing(this.props.id)
 			.then((response) => {
+				this.props.addNotification({
+					title: `Deleted ${this.props.title}`,
+					type: 'success',
+				});
 				this.props.afterChange();
 			})
 			.catch((error) => {
 				console.log(`Error deleting data: ${error}`);
+					this.props.addNotification({
+						title: `Error deleting data: ${error}`,
+						type: 'error',
+					});
 			});
 	}
 
@@ -65,25 +75,32 @@ class ListingItem extends Component {
 			title,
 			url,
 			id,
-			afterChange
+			afterChange,
+			addNotification,
 		} = this.props;
 		
-		const isNewData = (newNameValue !== title) && (newUrlValue !== url);
+		const isNewData = (newNameValue !== title) || (newUrlValue !== url);
 
 		// Only update if new data is different than old data
 		// ----
 		if (isNewData) {
 			const newData = createItem(newNameValue, newUrlValue);
 
-
 			updateListing(id, newData)
 				.then((response) => {
-					// console.log('Update response: ', response);
+					addNotification({
+						title: `Updated ${response.data.attributes.title}`,
+						type: 'success',
+					});
 					afterChange();
 					this.setState({editing: false});
 				})
 				.catch((error) => {
 					console.log(`Error updating data: ${error}`);
+					addNotification({
+						title: `Error updating data: ${error}`,
+						type: 'error',
+					});
 					this.setState({editing: false});
 				});
 		} else {

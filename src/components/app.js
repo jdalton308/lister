@@ -3,6 +3,7 @@ import PageWrapper from './page-wrapper';
 import PageTitle from './page-title';
 import AddForm from './add-form';
 import ListingList from './listing-list';
+import Notification from './notification';
 import {
 	getListings
 } from '../utils/fetch';
@@ -15,10 +16,12 @@ export default class App extends Component {
 		
 		this.state = {
 			listings: [],
+			notification: {title: '', type: null, id: 1},
 		};
 
 		this.afterAdd = this.afterAdd.bind(this);
 		this.afterChange = this.afterChange.bind(this);
+		this.addNotification = this.addNotification.bind(this);
 	}
 
 	//============================
@@ -55,6 +58,11 @@ export default class App extends Component {
 		this.fetchData();
 	}
 
+	addNotification(notifyObj) {
+		notifyObj.id = this.state.notification.id + 1;
+		this.setState({notification: notifyObj});
+	}
+
 
 	componentDidMount() {
 		this.fetchData();
@@ -63,6 +71,7 @@ export default class App extends Component {
 	render() {
 		const {
 			listings,
+			notification
 		} = this.state;
 
 		return (
@@ -74,11 +83,19 @@ export default class App extends Component {
 
 				<AddForm
 					afterAdd={this.afterAdd}
+					addNotification={this.addNotification}
 				/>
 
 				<ListingList
 					listings={listings}
 					afterChange={this.afterChange}
+					addNotification={this.addNotification}
+				/>
+
+				<Notification
+					title={notification.title}
+					type={notification.type}
+					id={notification.id}
 				/>
 
 			</PageWrapper>

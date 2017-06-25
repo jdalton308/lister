@@ -13,10 +13,12 @@ class AddForm extends Component {
 
 	static propTypes = {
 		onSubmit: PropTypes.func,
+		addNotification: PropTypes.func,
 	};
 
 	static defaultProps = {
 		onSubmit: () => {},
+		addNotification: () => {},
 	};
 
 	constructor(props) {
@@ -34,18 +36,6 @@ class AddForm extends Component {
 		this.updateUrl = this.updateUrl.bind(this);
 	}
 
-	// TODO:
-	//---------
-	// Inline validation
-	// - url string validation:
-	//   - Begins with 'http://' or 'https://'
-	//   - contains 'www.' ... '.' ...
-	// - name has a length?
-
-	// Show server error to user
-	// Success message when creating/deleting
-
-
 	addData() {
 		const {
 			nameValue,
@@ -62,9 +52,18 @@ class AddForm extends Component {
 					nameValid: null,
 					urlValid: null
 				});
+				console.log('Post response: ', response);
+				this.props.addNotification({
+					title: `Created listing for ${response.data.attributes.title}`,
+					type: 'success',
+				});
 				this.props.afterAdd();
 			})
 			.catch((error) => {
+				this.props.addNotification({
+					title: 'Error creating new listing',
+					type: 'error',
+				});
 				console.log(`Error posting new data: ${error}`);
 			});
 	}
@@ -96,7 +95,7 @@ class AddForm extends Component {
 			onSubmit
 		} = this.props;
 
-		// TODO: Fix these...
+		// TODO: Refactor these...
 		const nameInputClass =
 			(nameValid === null) ?
 				'title-input' :

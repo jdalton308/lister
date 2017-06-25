@@ -2,7 +2,7 @@ import React, {PropTypes} from 'react';
 import ListingItem from './listing-item';
 
 
-const ListingList = ({listings, afterChange}) => (
+const ListingList = ({listings, afterChange, addNotification}) => (
 
 	<div className='listing-list'>
 
@@ -25,6 +25,7 @@ const ListingList = ({listings, afterChange}) => (
 						id={id}
 						type={type}
 						afterChange={afterChange}
+						addNotification={addNotification}
 					/>
 				);
 			})
@@ -41,6 +42,7 @@ const ListingList = ({listings, afterChange}) => (
 ListingList.propTypes = {
 	listings: PropTypes.array,
 	afterChange: PropTypes.func,
+	addNotification: PropTypes.func,
 };
 
 
