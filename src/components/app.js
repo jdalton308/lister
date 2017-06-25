@@ -26,8 +26,9 @@ export default class App extends Component {
 	//-----------
 	// 'Working' state during fetches
 
-	// Form validation and feedback
-	// - Disable button/enable
+	// X Form validation
+	// X - Disable button/enable
+	// Submittal feedback
 	// Handle server error
 
 	// Secure the auth token
