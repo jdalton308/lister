@@ -1,0 +1,83 @@
+
+.page-title {
+	margin-bottom: 55px;
+}
+
+.page-wrapper {
+	max-width: 620px;
+	margin: 0 auto;
+}
+
+.add-listing-form {
+	display: flex;
+	margin-bottom: 60px;
+
+	.inputs-container {
+		flex: 1;
+		display: flex;
+		margin-right: 16px;
+
+		.title-input {
+			flex: 1 0 40%;
+			max-width: 40%;
+			border-right: none;
+			border-radius: 3px 0 0 3px;
+		}
+		.url-input {
+			flex: 3;
+			border-radius: 0 3px 3px 0;
+		}
+	}
+	button {
+		flex: 0 0 auto;
+	}
+}
+
+.listing-list {
+	text-align: left;
+
+	.listing-item {
+		position: relative;
+		display: inline-block;
+		width: calc(50% - 15px);
+		margin-bottom: 30px;
+		padding: 15px 18px 18px;
+
+		background-color: $white;
+		border-radius: 3px;
+		border: 1px solid $grey-light;
+		@include transition();
+
+		&:hover {
+			box-shadow: 0 1px 3px $grey-shadow;
+
+			.listing-icons {
+				opacity: 1;
+			}
+		}
+		&:nth-child(odd) {
+			margin-right: 28px;
+		}
+
+		.listing-icons {
+			position: absolute;
+			top: 0;
+			right: 0;
+			opacity: 0;
+			@include transition();
+
+			.icon {
+				display: inline-block;
+				color: $blue;
+				padding: 5px;
+			}
+		}
+		.listing-title {
+			font-size: 0.95rem;
+			margin-bottom: 7px;
+		}
+		.listing-url {
+			font-size: 0.75rem;
+		}
+	}
+}
