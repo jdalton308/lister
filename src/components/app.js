@@ -24,20 +24,6 @@ export default class App extends Component {
 	//============================
 	// TODO:
 	//-----------
-	// Create components:
-	// X- Title
-	// X- Page wrapper
-	// X- Form
-	// X- Listing list
-	// X- Listing item
-
-	// X Get the data after mounting
-	// X- Null state
-	// X Pass 'delete' function to cards
-	// X Pass 'add' function to form, then re-fetch data
-	// XPass 'edit' function to cards
-	// X- Create 'edit' mode of cards
-
 	// 'Working' state during fetches
 
 	// Form validation and feedback

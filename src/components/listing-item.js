@@ -62,25 +62,36 @@ class ListingItem extends Component {
 		} = this.state;
 
 		const {
+			title,
+			url,
 			id,
 			afterChange
 		} = this.props;
 		
-		const newData = createItem(newNameValue, newUrlValue);
+		const isNewData = (newNameValue !== title) && (newUrlValue !== url);
 
-		updateListing(id, newData)
-			.then((response) => {
-				// console.log('Update response: ', response);
-				afterChange();
-				this.setState({editing: false});
-			})
-			.catch((error) => {
-				console.log(`Error updating data: ${error}`);
-				this.setState({editing: false});
-			});
+		// Only update if new data is different than old data
+		// ----
+		if (isNewData) {
+			const newData = createItem(newNameValue, newUrlValue);
 
-			// TODO:
-			// - Show success/fail messaging
+
+			updateListing(id, newData)
+				.then((response) => {
+					// console.log('Update response: ', response);
+					afterChange();
+					this.setState({editing: false});
+				})
+				.catch((error) => {
+					console.log(`Error updating data: ${error}`);
+					this.setState({editing: false});
+				});
+		} else {
+			this.setState({editing: false});
+		}
+
+		// TODO:
+		// - Show success/fail messaging
 	}
 
 	cancelEdit(e) {
@@ -126,7 +137,7 @@ class ListingItem extends Component {
 					</div>
 				</div>
 
-				<div className='listing-icons editing-icons' style={editing ? {top:0} : {top:'-30px'}}>
+				<div className='listing-icons editing-icons' style={editing ? {top:0, opacity:1} : {top:'-30px'}}>
 					<div 
 						className='icon'
 						onClick={this.cancelEdit}

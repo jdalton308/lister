@@ -29,6 +29,11 @@ class AddForm extends Component {
 	// TODO:
 	//---------
 	// Inline validation
+	// - url string validation:
+	//   - Begins with 'http://' or 'https://'
+	//   - contains 'www.' ... '.' ...
+	// - name has a length?
+
 	// Show server error to user
 	// Success message when creating/deleting
 
