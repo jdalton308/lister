@@ -41,13 +41,6 @@ class ListingItem extends Component {
 		this.cancelEdit = this.cancelEdit.bind(this);
 	}
 
-	// TODO:
-	// ---------
-	// X Icons
-	// Allow edits
-	// - Create editing state
-	// - Allow save
-
 	onDelete(e) {
 		deleteListing(this.props.id)
 			.then((response) => {
