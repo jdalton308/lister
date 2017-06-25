@@ -4,15 +4,22 @@ import PageTitle from './page-title';
 import AddForm from './add-form';
 import ListingList from './listing-list';
 
+import {
+	getListings
+} from '../utils/fetch';
+
 
 export default class App extends Component {
 
 	constructor(props) {
 		super(props);
 		
-		this.state = {};
+		this.state = {
+			listings: [],
+		};
 	}
 
+	//============================
 	// TODO:
 	//-----------
 	// Create components:
@@ -35,14 +42,43 @@ export default class App extends Component {
 
 	// Secure the auth token
 
+	//===========================
+
+	componentDidMount() {
+		this.fetchData();
+	}
+
+	fetchData() {
+		getListings()
+			.then((response) => {
+				console.log('Response: ', response);
+				this.setState({
+					listings: response.data
+				});
+			})
+			.catch((error) => {
+				console.log(`Error fetching data: ${error}`);
+			});
+	}
+
 
 	render() {
+		const {
+			listings,
+		} = this.state;
+
 		return (
 			<PageWrapper>
 
-				<PageTitle title='Listings' />
+				<PageTitle
+					title='Listings'
+				/>
+
 				<AddForm />
-				<ListingList />
+
+				<ListingList
+					listings={listings}
+				/>
 
 			</PageWrapper>
 		)
