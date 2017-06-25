@@ -1,4 +1,8 @@
 import React, {Component, PropTypes} from 'react';
+import {
+	TrashIcon,
+	EditIcon
+} from './icons';
 
 
 class ListingItem extends Component {
@@ -29,6 +33,14 @@ class ListingItem extends Component {
 	// - Create editing state
 	// - Allow save
 
+	onDelete(e) {
+		e.stopPropagation();
+	}
+
+	onEdit(e) {
+		e.stopPropagation();
+	}
+
 
 	render() {
 		const {
@@ -39,14 +51,28 @@ class ListingItem extends Component {
 		} = this.props;
 
 		return (
-			<div className='listing-item'>
+			<a
+				className='listing-item'
+				target='_blank'
+				href={url}
+			>
 				<div className='listing-icons'>
-					<div className='icon'>e</div>
-					<div className='icon'>x</div>
+					<div
+						className='icon'
+						onClick={this.onEdit}
+					>
+						<EditIcon height={14} />
+					</div>
+					<div 
+						className='icon'
+						onClick={this.onDelete}
+					>
+						<TrashIcon height={14} />
+					</div>
 				</div>
 				<div className='listing-title no-wrap'>{title}</div>
 				<div className='listing-url no-wrap'>{url}</div>
-			</div>
+			</a>
 		);
 	}
 }

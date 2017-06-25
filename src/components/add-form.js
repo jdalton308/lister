@@ -20,8 +20,9 @@ class AddForm extends Component {
 
 	// TODO:
 	//---------
-	// Validation
+	// Inline validation
 	// Show server error to user
+	// Success message when creating/deleting
 
 	createItem() {
 		const {
@@ -54,6 +55,11 @@ class AddForm extends Component {
 
 	render() {
 		const {
+			nameValue,
+			urlValue,
+		} = this.state;
+
+		const {
 			onSubmit
 		} = this.props;
 
@@ -62,14 +68,14 @@ class AddForm extends Component {
 				<div className='inputs-container'>
 					<input
 						type='text'
-						value={null}
+						value={nameValue}
 						className='title-input'
 						placeholder='Name'
 						onChange={ (e) => this.setState({nameValue: e.target.value}) }
 					/>
 					<input
 						type='text'
-						value={null}
+						value={urlValue}
 						className='url-input'
 						placeholder='URL'
 						onChange={ (e) => this.setState({urlValue: e.target.value}) }

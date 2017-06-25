@@ -107,10 +107,18 @@ button,
 	@include transition();
 
 	&:hover {
-		background-color: darken($blue, 20%);
+		background-color: $blue-hover;
 	}
 }
 
 
 // Icons
 //----------
+.icon-base {
+	fill: $blue;
+	@include transition();
+
+	&:hover {
+		fill: $blue-hover;
+	}
+}
