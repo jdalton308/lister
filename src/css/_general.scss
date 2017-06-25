@@ -20,7 +20,7 @@ html {
 main {
 	position: relative;
 	min-height: 100vh;
-	padding: 40px 20px 50px;
+	padding: 50px 20px 50px;
 	text-align: center;
 	background-color: $off-white;
 }
@@ -49,6 +49,15 @@ a {
 	&:visited {
 		color: $text-color;
 	}
+}
+
+
+// Utilities
+//---------
+.no-wrap {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 }
 
 

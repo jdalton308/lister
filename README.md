@@ -10,3 +10,4 @@ Development exercise for application
 
 ## Comments
 - Input design looks very similar to cards
+- The 'Enter' action seems like a wierd label. Maybe 'Save'?

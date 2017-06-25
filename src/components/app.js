@@ -56,8 +56,8 @@ export default class App extends Component {
 								<div className='icon'>e</div>
 								<div className='icon'>x</div>
 							</div>
-							<div className='listing-title'>Dolor Ipsum</div>
-							<div className='listing-url'>www.doloripsum.com</div>
+							<div className='listing-title no-wrap'>Dolor Ipsum</div>
+							<div className='listing-url no-wrap'>www.doloripsum.com</div>
 						</div>
 
 					</div>
