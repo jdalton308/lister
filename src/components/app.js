@@ -17,6 +17,8 @@ export default class App extends Component {
 		this.state = {
 			listings: [],
 		};
+
+		this.afterAdd = this.afterAdd.bind(this);
 	}
 
 	//============================
@@ -29,10 +31,10 @@ export default class App extends Component {
 	// X- Listing list
 	// X- Listing item
 
-	// Get the data after mounting
-	// - Null state
+	// X Get the data after mounting
+	// X- Null state
 	// Pass 'delete' function to cards
-	// Pass 'add' function to form, then re-fetch data
+	// X Pass 'add' function to form, then re-fetch data
 	// Pass 'edit' function to cards
 	// - Create 'edit' mode of cards
 
@@ -44,14 +46,9 @@ export default class App extends Component {
 
 	//===========================
 
-	componentDidMount() {
-		this.fetchData();
-	}
-
 	fetchData() {
 		getListings()
 			.then((response) => {
-				console.log('Response: ', response);
 				this.setState({
 					listings: response.data
 				});
@@ -61,6 +58,14 @@ export default class App extends Component {
 			});
 	}
 
+	afterAdd() {
+		this.fetchData();
+	}
+
+
+	componentDidMount() {
+		this.fetchData();
+	}
 
 	render() {
 		const {
@@ -74,7 +79,9 @@ export default class App extends Component {
 					title='Listings'
 				/>
 
-				<AddForm />
+				<AddForm
+					afterAdd={this.afterAdd}
+				/>
 
 				<ListingList
 					listings={listings}

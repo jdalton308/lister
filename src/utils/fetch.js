@@ -8,6 +8,7 @@ const ourHeaders = new Headers({
 });
 
 
+
 // GET Listings
 //----------------
 const getUrl = `${requestUrl}/api/v1/listings`;
@@ -26,3 +27,25 @@ export function getListings() {
 			throw new Error('Network error when fetching data')
 		});
 };
+
+
+
+// POST New listing
+//--------------------
+const postUrl = `${requestUrl}/api/v1/listings`;
+
+export function postListing(newData) {
+	const postOptions = {
+		method: 'POST',
+		headers: ourHeaders,
+		body: JSON.stringify(newData),
+	};
+
+	return fetch(postUrl, postOptions)
+		.then((response) => {
+			if (response.ok) {
+				return response.json();
+			}
+			throw new Error('Network error when posting data')
+		});
+}
