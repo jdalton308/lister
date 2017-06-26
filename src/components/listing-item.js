@@ -197,25 +197,16 @@ class ListingItem extends Component {
 					// Icons
 				}
 				<div className='listing-icons' style={editing ? {top:'-30px'} : {top: 0}}>
-					<div
-						className='icon'
-						onClick={this.onEdit}
-					>
+					<div className='icon' onClick={this.onEdit} >
 						<EditIcon height={14} />
 					</div>
-					<div 
-						className='icon'
-						onClick={this.onDelete}
-					>
+					<div className='icon' onClick={this.onDelete} >
 						<TrashIcon height={14} />
 					</div>
 				</div>
 
 				<div className='listing-icons editing-icons' style={editing ? {top:0, opacity:1} : {top:'-30px'}}>
-					<div 
-						className='icon'
-						onClick={this.cancelEdit}
-					>
+					<div className='icon' onClick={this.cancelEdit} >
 						<CloseIcon height={14} />
 					</div>
 					<div
