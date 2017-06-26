@@ -10,6 +10,10 @@ import {
 	deleteListing,
 	updateListing
 } from '../utils/fetch';
+import {
+	validateName,
+	validateUrl,
+} from '../utils/validate';
 
 
 class ListingItem extends Component {
@@ -35,12 +39,17 @@ class ListingItem extends Component {
 			editing: false,
 			newNameValue: props.title,
 			newUrlValue: props.url,
+			nameValid: null,
+			urlValid: null,
 		};
 
 		this.onDelete = this.onDelete.bind(this);
 		this.onEdit = this.onEdit.bind(this);
 		this.saveEdit = this.saveEdit.bind(this);
 		this.cancelEdit = this.cancelEdit.bind(this);
+		this.handleNameEdit = this.handleNameEdit.bind(this);
+		this.handleUrlEdit = this.handleUrlEdit.bind(this);
+		this.handleKeyDown = this.handleKeyDown.bind(this);
 	}
 
 	onDelete(e) {
@@ -63,6 +72,15 @@ class ListingItem extends Component {
 
 	onEdit(e) {
 		this.setState({editing: true});
+	}
+
+	canSave() {
+		const {
+			nameValid,
+			urlValid,
+		} = this.state;
+
+		return (nameValid || nameValid === null) && (urlValid || urlValid === null);
 	}
 
 	saveEdit(e) {
@@ -93,7 +111,11 @@ class ListingItem extends Component {
 						type: 'success',
 					});
 					afterChange();
-					this.setState({editing: false});
+					this.setState({
+						editing: false,
+						nameValid: null,
+						urlValid: null,
+					});
 				})
 				.catch((error) => {
 					console.log(`Error updating data: ${error}`);
@@ -113,7 +135,29 @@ class ListingItem extends Component {
 			editing: false,
 			newNameValue: this.props.title,
 			newUrlValue: this.props.url,
+			nameValid: null,
+			urlValid: null,
 		});
+	}
+
+	handleNameEdit(e) {
+		this.setState({
+			newNameValue: e.target.value,
+			nameValid: validateName(e.target.value),
+		});
+	}
+
+	handleUrlEdit(e) {
+		this.setState({
+			newUrlValue: e.target.value,
+			urlValid: validateUrl(e.target.value),
+		}); 
+	}
+
+	handleKeyDown(e) {
+		if (e.nativeEvent.keyCode === 13 && this.canSave()) {
+			this.saveEdit();
+		}
 	}
 
 
@@ -122,6 +166,8 @@ class ListingItem extends Component {
 			editing,
 			newNameValue,
 			newUrlValue,
+			nameValid,
+			urlValid,
 		} = this.state;
 
 		const {
@@ -130,6 +176,20 @@ class ListingItem extends Component {
 			id,
 			type
 		} = this.props;
+
+		const nameInputClass =
+			(nameValid === null) ?
+				'new-title-input' :
+				(nameValid) ?
+					'new-title-input valid' :
+					'new-title-input invalid';
+
+		const urlInputClass =
+			(urlValid === null) ?
+				'new-url-input' :
+				(urlValid) ?
+					'new-url-input valid' :
+					'new-url-input invalid';
 
 		return (
 			<div className='listing-item'>
@@ -159,7 +219,7 @@ class ListingItem extends Component {
 						<CloseIcon height={14} />
 					</div>
 					<div
-						className='icon'
+						className={(this.canSave()) ? 'icon' : 'icon disabled'}
 						onClick={this.saveEdit}
 					>
 						<CheckIcon height={14} />
@@ -182,16 +242,18 @@ class ListingItem extends Component {
 					<input
 						type='text'
 						value={newNameValue}
-						className='new-title-input'
+						className={nameInputClass}
 						placeholder='Name'
-						onChange={ (e) => this.setState({newNameValue: e.target.value}) }
+						onChange={ this.handleNameEdit }
+						onKeyDown={this.handleKeyDown}
 					/>
 					<input
 						type='text'
 						value={newUrlValue}
-						className='new-url-input'
+						className={urlInputClass}
 						placeholder='URL'
-						onChange={ (e) => this.setState({newUrlValue: e.target.value}) }
+						onChange={ this.handleUrlEdit }
+						onKeyDown={this.handleKeyDown}
 					/>
 				</div>
 

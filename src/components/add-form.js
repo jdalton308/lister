@@ -34,6 +34,7 @@ class AddForm extends Component {
 		this.addData = this.addData.bind(this);
 		this.updateName = this.updateName.bind(this);
 		this.updateUrl = this.updateUrl.bind(this);
+		this.handleKeyDown = this.handleKeyDown.bind(this);
 	}
 
 	addData() {
@@ -46,17 +47,19 @@ class AddForm extends Component {
 
 		postListing(newData)
 			.then((response) => {
+
 				this.setState({
 					nameValue: '',
 					urlValue: '',
 					nameValid: null,
 					urlValid: null
 				});
-				console.log('Post response: ', response);
+
 				this.props.addNotification({
 					title: `Created listing for ${response.data.attributes.title}`,
 					type: 'success',
 				});
+
 				this.props.afterAdd();
 			})
 			.catch((error) => {
@@ -66,6 +69,12 @@ class AddForm extends Component {
 				});
 				console.log(`Error posting new data: ${error}`);
 			});
+	}
+
+	handleKeyDown(e) {
+		if (e.nativeEvent.keyCode === 13 && this.state.nameValid && this.state.urlValid) {
+			this.addData();
+		}
 	}
 
 	updateName(e) {
@@ -118,6 +127,7 @@ class AddForm extends Component {
 						className={nameInputClass}
 						placeholder='Name'
 						onChange={this.updateName}
+						onKeyDown={this.handleKeyDown}
 					/>
 					<input
 						type='text'
@@ -125,6 +135,7 @@ class AddForm extends Component {
 						className={urlInputClass}
 						placeholder='URL'
 						onChange={this.updateUrl}
+						onKeyDown={this.handleKeyDown}
 					/>
 				</div>
 				<button
