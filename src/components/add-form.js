@@ -95,7 +95,6 @@ class AddForm extends Component {
 			onSubmit
 		} = this.props;
 
-		// TODO: Refactor these...
 		const nameInputClass =
 			(nameValid === null) ?
 				'title-input' :

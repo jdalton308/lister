@@ -74,6 +74,11 @@
 .listing-list {
 	text-align: left;
 
+	.no-listings {
+		text-align: center;
+		color: $grey-light;
+	}
+
 	.listing-item {
 		display: block;
 		position: relative;
