@@ -31,17 +31,26 @@ class AddForm extends Component {
 			urlValid: null,
 		};
 
-		this.addData = this.addData.bind(this);
-		this.updateName = this.updateName.bind(this);
-		this.updateUrl = this.updateUrl.bind(this);
-		this.handleKeyDown = this.handleKeyDown.bind(this);
+		this.addData = this._addData.bind(this);
+		this.updateName = this._updateName.bind(this);
+		this.updateUrl = this._updateUrl.bind(this);
+		this.handleKeyDown = this._handleKeyDown.bind(this);
 	}
 
-	addData() {
+
+	// Components Methods
+	//----------------------
+
+	_addData() {
 		const {
 			nameValue,
 			urlValue
 		} = this.state;
+
+		const {
+			addNotification,
+			afterAdd,
+		} = this.props;
 
 		const newData = createItem(nameValue, urlValue);
 
@@ -55,15 +64,15 @@ class AddForm extends Component {
 					urlValid: null
 				});
 
-				this.props.addNotification({
+				addNotification({
 					title: `Created listing for ${response.data.attributes.title}`,
 					type: 'success',
 				});
 
-				this.props.afterAdd();
+				afterAdd();
 			})
 			.catch((error) => {
-				this.props.addNotification({
+				addNotification({
 					title: 'Error creating new listing',
 					type: 'error',
 				});
@@ -71,26 +80,29 @@ class AddForm extends Component {
 			});
 	}
 
-	handleKeyDown(e) {
+	_handleKeyDown(e) {
 		if (e.nativeEvent.keyCode === 13 && this.state.nameValid && this.state.urlValid) {
 			this.addData();
 		}
 	}
 
-	updateName(e) {
+	_updateName(e) {
 		this.setState({
 			nameValue: e.target.value,
 			nameValid: validateName(e.target.value),
 		});
 	}
 
-	updateUrl(e) {
+	_updateUrl(e) {
 		this.setState({
 			urlValue: e.target.value,
 			urlValid: validateUrl(e.target.value),
 		});
 	}
 
+
+	// Lifecycle Methods
+	//----------------------
 
 	render() {
 		const {

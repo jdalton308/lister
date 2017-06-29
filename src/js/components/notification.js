@@ -16,32 +16,40 @@ class Notification extends Component {
 			canShow: !!this.props.title.length,
 		};
 
-		this.hideNotification = this.hideNotification.bind(this);
+		this.hideNotification = this._hideNotification.bind(this);
 
 		this.timer;
 	}
 
-	startTimer() {
+
+	// Components Methods
+	//----------------------
+
+	_startTimer() {
 		this.timer = window.setTimeout(() => {
 			this.setState({canShow: false})
 		}, 5000);
 	}
 
-	hideNotification() {
+	_hideNotification() {
 		window.clearTimeout(this.timer);
 		this.setState({canShow: false});
 	}
 
+
+	// Lifecycle Methods
+	//----------------------
+
 	componentWillReceiveProps(nextProps) {
 		if ( (nextProps.id !== this.props.id) && !this.state.canShow) {
 			this.setState({canShow:true});
-			this.startTimer();
+			this._startTimer();
 		}
 	}
 
 	componentDidMount() {
 		if (this.props.title.length) {
-			this.startTimer();
+			this._startTimer();
 		}
 	}
 

@@ -2,6 +2,8 @@ import React, {PropTypes} from 'react';
 import ListingItem from './listing-item';
 
 
+// Alphabetize the cards
+//-----------
 function compareTitles(a, b) {
 	return (a.attributes.title < b.attributes.title) ? -1 :
 		(a.attributes.title > b.attributes.title) ? 1 : 0;

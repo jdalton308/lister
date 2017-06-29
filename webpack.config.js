@@ -1,7 +1,7 @@
 
 const path = require('path');
 
-const SRC_DIR = path.resolve(__dirname, 'src');
+const SRC_DIR = path.resolve(__dirname, 'src/js');
 const BUILD_DIR = path.resolve(__dirname, 'build');
 
 module.exports = {

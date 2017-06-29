@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import PageWrapper from './page-wrapper';
-import PageTitle from './page-title';
-import AddForm from './add-form';
-import ListingList from './listing-list';
-import Notification from './notification';
+import PageWrapper from '../components/page-wrapper';
+import PageTitle from '../components/page-title';
+import AddForm from '../components/add-form';
+import ListingList from '../components/listing-list';
+import Notification from '../components/notification';
 import {
 	getListings
 } from '../utils/fetch';
@@ -19,12 +19,16 @@ export default class App extends Component {
 			notification: {title: '', type: null, id: 1},
 		};
 
-		this.afterAdd = this.afterAdd.bind(this);
-		this.afterChange = this.afterChange.bind(this);
-		this.addNotification = this.addNotification.bind(this);
+		this.afterAdd = this._afterAdd.bind(this);
+		this.afterChange = this._afterChange.bind(this);
+		this.addNotification = this._addNotification.bind(this);
 	}
 
-	fetchData() {
+
+	// Components Methods
+	//----------------------
+
+	_fetchData() {
 		getListings()
 			.then((response) => {
 				this.setState({
@@ -36,22 +40,25 @@ export default class App extends Component {
 			});
 	}
 
-	afterAdd() {
-		this.fetchData();
+	_afterAdd() {
+		this._fetchData();
 	}
 
-	afterChange() {
-		this.fetchData();
+	_afterChange() {
+		this._fetchData();
 	}
 
-	addNotification(notifyObj) {
+	_addNotification(notifyObj) {
 		notifyObj.id = this.state.notification.id + 1;
 		this.setState({notification: notifyObj});
 	}
 
 
+	// Lifecycle Methods
+	//----------------------
+
 	componentDidMount() {
-		this.fetchData();
+		this._fetchData();
 	}
 
 	render() {

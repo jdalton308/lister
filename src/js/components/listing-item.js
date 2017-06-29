@@ -43,16 +43,20 @@ class ListingItem extends Component {
 			urlValid: null,
 		};
 
-		this.onDelete = this.onDelete.bind(this);
-		this.onEdit = this.onEdit.bind(this);
-		this.saveEdit = this.saveEdit.bind(this);
-		this.cancelEdit = this.cancelEdit.bind(this);
-		this.handleNameEdit = this.handleNameEdit.bind(this);
-		this.handleUrlEdit = this.handleUrlEdit.bind(this);
-		this.handleKeyDown = this.handleKeyDown.bind(this);
+		this.onDelete = this._onDelete.bind(this);
+		this.onEdit = this._onEdit.bind(this);
+		this.saveEdit = this._saveEdit.bind(this);
+		this.cancelEdit = this._cancelEdit.bind(this);
+		this.handleNameEdit = this._handleNameEdit.bind(this);
+		this.handleUrlEdit = this._handleUrlEdit.bind(this);
+		this.handleKeyDown = this._handleKeyDown.bind(this);
 	}
 
-	onDelete(e) {
+
+	// Components Methods
+	//----------------------
+
+	_onDelete(e) {
 		deleteListing(this.props.id)
 			.then((response) => {
 				this.props.addNotification({
@@ -70,11 +74,11 @@ class ListingItem extends Component {
 			});
 	}
 
-	onEdit(e) {
+	_onEdit(e) {
 		this.setState({editing: true});
 	}
 
-	canSave() {
+	_canSave() {
 		const {
 			nameValid,
 			urlValid,
@@ -83,7 +87,7 @@ class ListingItem extends Component {
 		return (nameValid || nameValid === null) && (urlValid || urlValid === null);
 	}
 
-	saveEdit(e) {
+	_saveEdit(e) {
 		const {
 			newNameValue,
 			newUrlValue
@@ -130,7 +134,7 @@ class ListingItem extends Component {
 		}
 	}
 
-	cancelEdit(e) {
+	_cancelEdit(e) {
 		this.setState({
 			editing: false,
 			newNameValue: this.props.title,
@@ -140,26 +144,29 @@ class ListingItem extends Component {
 		});
 	}
 
-	handleNameEdit(e) {
+	_handleNameEdit(e) {
 		this.setState({
 			newNameValue: e.target.value,
 			nameValid: validateName(e.target.value),
 		});
 	}
 
-	handleUrlEdit(e) {
+	_handleUrlEdit(e) {
 		this.setState({
 			newUrlValue: e.target.value,
 			urlValid: validateUrl(e.target.value),
 		}); 
 	}
 
-	handleKeyDown(e) {
-		if (e.nativeEvent.keyCode === 13 && this.canSave()) {
+	_handleKeyDown(e) {
+		if (e.nativeEvent.keyCode === 13 && this._canSave()) {
 			this.saveEdit();
 		}
 	}
 
+
+	// Lifecycle Methods
+	//----------------------
 
 	render() {
 		const {
@@ -210,7 +217,7 @@ class ListingItem extends Component {
 						<CloseIcon height={14} />
 					</div>
 					<div
-						className={(this.canSave()) ? 'icon' : 'icon disabled'}
+						className={(this._canSave()) ? 'icon' : 'icon disabled'}
 						onClick={this.saveEdit}
 					>
 						<CheckIcon height={14} />
